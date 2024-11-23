@@ -25,12 +25,11 @@ export default function Home() {
             <table className="table">
                 <thead>
                     <tr>
-                        <th>Sno.</th>
+                        <th>SL.</th>
                         <th>Image</th>
                         <th>Title</th>
                         <th>Author</th>
                         <th>Date</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,8 +44,6 @@ export default function Home() {
                             <td>{blog.created_at}</td>
                         </tr>
                     ))}
-
-
                 </tbody>
             </table>
         </div>
