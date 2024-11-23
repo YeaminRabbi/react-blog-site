@@ -1,12 +1,22 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import http from '../../http';
 
 export default function Login() {
     const navigate = useNavigate();
-
+    const location = useLocation(); // Access current location (URL)
     const [inputs, setInputs] = useState({});
     const [message, setMessage] = useState({ text: '', type: '' });
+
+    // Parse the query parameters to check for 'success'
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const success = queryParams.get('success');
+
+        if (success === 'true') {
+            setMessage({ text: 'Registration successful! Please login.', type: 'success' });
+        }
+    }, [location]);
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -18,7 +28,7 @@ export default function Login() {
         // Send POST request with inputs data
         http.post('/login', inputs)
             .then(res => {
-                console.log(res.data);
+
                 // Set success message
                 setMessage({ text: 'Login successful!', type: 'success' });
 
@@ -31,7 +41,6 @@ export default function Login() {
                 navigate('/create');
             })
             .catch(error => {
-                console.error("Error fetching data:", error);
                 // Set error message
                 setMessage({ text: 'Something went wrong. Please try again.', type: 'danger' });
             });

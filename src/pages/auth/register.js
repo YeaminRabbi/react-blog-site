@@ -14,16 +14,16 @@ export default function Login() {
         setInputs(values => ({ ...values, [name]: value }));
     };
 
-    const submitForm = () => {
+    const submitForm = (event) => {
+        event.preventDefault();  // Prevent the default form submission behavior
+
         // Send POST request with inputs data
         http.post('/users', inputs)
             .then(res => {
-
-                // Navigate after successful login
+                // Navigate after successful registration
                 navigate('/login' + '?success=true');
             })
             .catch(error => {
-                console.error("Error fetching data:", error);
                 // Set error message
                 setMessage({ text: 'Something went wrong. Please try again.', type: 'danger' });
             });
@@ -41,62 +41,64 @@ export default function Login() {
                     </div>
                 )}
 
-                {/* Name Field */}
-                <div className="mb-3">
-                    <label htmlFor="name" className="form-label">
-                        Name
-                    </label>
-                    <input
-                        type="name"
-                        className="form-control"
-                        id="name"
-                        name="name"
-                        placeholder="Enter your name"
-                        value={inputs.name || ''}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+                {/* Form for Registration */}
+                <form onSubmit={submitForm}>
+                    {/* Name Field */}
+                    <div className="mb-3">
+                        <label htmlFor="name" className="form-label">
+                            Name
+                        </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="name"
+                            name="name"
+                            placeholder="Enter your name"
+                            value={inputs.name || ''}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-                {/* Email Field */}
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">
-                        Email address
-                    </label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        id="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        value={inputs.email || ''}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+                    {/* Email Field */}
+                    <div className="mb-3">
+                        <label htmlFor="email" className="form-label">
+                            Email address
+                        </label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            value={inputs.email || ''}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-                {/* Password Field */}
-                <div className="mb-3">
-                    <label htmlFor="password" className="form-label">
-                        Password
-                    </label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        id="password"
-                        name="password"
-                        placeholder="Enter your password"
-                        value={inputs.password || ''}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+                    {/* Password Field */}
+                    <div className="mb-3">
+                        <label htmlFor="password" className="form-label">
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            value={inputs.password || ''}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-                {/* Submit Button */}
-                <button type="submit" onClick={submitForm} className="btn btn-primary w-100">
-                    Register
-                </button>
-
+                    {/* Submit Button */}
+                    <button type="submit" className="btn btn-primary w-100">
+                        Register
+                    </button>
+                </form>
 
                 {/* Additional Links */}
                 <div className="text-center mt-3">
