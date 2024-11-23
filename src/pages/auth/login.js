@@ -24,7 +24,9 @@ export default function Login() {
         setInputs(values => ({ ...values, [name]: value }));
     };
 
-    const submitForm = () => {
+    const submitForm = (event) => {
+        event.preventDefault(); // Prevent the default form submission
+
         // Send POST request with inputs data
         http.post('/login', inputs)
             .then(res => {
@@ -58,45 +60,47 @@ export default function Login() {
                     </div>
                 )}
 
-                {/* Email Field */}
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">
-                        Email address
-                    </label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        id="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        value={inputs.email || ''}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+                {/* Form for login */}
+                <form onSubmit={submitForm}>
+                    {/* Email Field */}
+                    <div className="mb-3">
+                        <label htmlFor="email" className="form-label">
+                            Email address
+                        </label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            value={inputs.email || ''}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-                {/* Password Field */}
-                <div className="mb-3">
-                    <label htmlFor="password" className="form-label">
-                        Password
-                    </label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        id="password"
-                        name="password"
-                        placeholder="Enter your password"
-                        value={inputs.password || ''}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+                    {/* Password Field */}
+                    <div className="mb-3">
+                        <label htmlFor="password" className="form-label">
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            value={inputs.password || ''}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-                {/* Submit Button */}
-                <button type="submit" onClick={submitForm} className="btn btn-primary w-100">
-                    Login
-                </button>
-
+                    {/* Submit Button */}
+                    <button type="submit" className="btn btn-primary w-100">
+                        Login
+                    </button>
+                </form>
 
                 {/* Additional Links */}
                 <div className="text-center mt-3">
