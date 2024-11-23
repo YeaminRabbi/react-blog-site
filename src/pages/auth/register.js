@@ -16,19 +16,11 @@ export default function Login() {
 
     const submitForm = () => {
         // Send POST request with inputs data
-        http.post('/login', inputs)
+        http.post('/users', inputs)
             .then(res => {
-                console.log(res.data);
-                // Set success message
-                setMessage({ text: 'Login successful!', type: 'success' });
 
-                // Store the token in localStorage
-                localStorage.setItem('auth_token', res.data.access_token);
-                localStorage.setItem('token_type', res.data.token_type);
-                localStorage.setItem('user', res.data.user);
-
-                // Optionally navigate after successful login
-                navigate('/create');
+                // Navigate after successful login
+                navigate('/login' + '?success=true');
             })
             .catch(error => {
                 console.error("Error fetching data:", error);
@@ -40,7 +32,7 @@ export default function Login() {
     return (
         <div className="d-flex justify-content-center align-items-center vh-100">
             <div className="card shadow p-4" style={{ width: "400px" }}>
-                <h2 className="text-center mb-4">Sign-in</h2>
+                <h2 className="text-center mb-4">Sign-up</h2>
 
                 {/* Conditional Alert Messages */}
                 {message.text && (
@@ -48,6 +40,23 @@ export default function Login() {
                         {message.text}
                     </div>
                 )}
+
+                {/* Name Field */}
+                <div className="mb-3">
+                    <label htmlFor="name" className="form-label">
+                        Name
+                    </label>
+                    <input
+                        type="name"
+                        className="form-control"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your name"
+                        value={inputs.name || ''}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
 
                 {/* Email Field */}
                 <div className="mb-3">
@@ -85,14 +94,14 @@ export default function Login() {
 
                 {/* Submit Button */}
                 <button type="submit" onClick={submitForm} className="btn btn-primary w-100">
-                    Login
+                    Register
                 </button>
 
 
                 {/* Additional Links */}
                 <div className="text-center mt-3">
                     <small>
-                        Don't have an account? <a href="/register">Register here</a>
+                        You have an account? <a href="/login">Login here</a>
                     </small>
                 </div>
             </div>
