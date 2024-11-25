@@ -11,8 +11,6 @@ export default function Home() {
 
     const fetchAllBlogs = () => {
         http.get('/blogs').then(response => {
-            console.log(response.data.blogs);
-            
             setBlogs(response.data.blogs); // Set the appropriate part of the response
         }).catch(error => {
             console.error("Error fetching blogs:", error);
