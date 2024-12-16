@@ -1,3 +1,1 @@
-1. Installation: 
-    - npx create-react-app my-react-app 
-    - npm install web-vitals
+React Installation:
